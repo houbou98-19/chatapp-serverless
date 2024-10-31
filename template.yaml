@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: chatapp-serverless
+
+Resources:
+  ChatApi:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      CodeUri: chatapi/
+      Timeout: 60
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      Environment:
+        Variables:
+          MONGODB_URL: !Sub "{{resolve:ssm:Parameter_MONGODB_URL}}"
+      Events:
+        ApiGateway:
+          Type: Api
+          Properties:
+            Path: /{proxy+}  
+            Method: ANY
+            RestApiId: !Ref ChatApiGateway # Ensure to reference the API Gateway
+        ChatMessages:
+          Type: Api
+          Properties:
+            Path: /chat/messages
+            Method: ANY 
+            RestApiId: !Ref ChatApiGateway
+
+  ChatApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowOrigin: "'*'"
+        AllowMethods: "'GET,POST,OPTIONS'"
+
+Outputs:
+  ApiUrl:
+    Description: "API Gateway URL for the Chat App"
+    Value: !Sub "https://${ChatApi}.execute-api.eu-west-1.amazonaws.com/Prod/chat"
