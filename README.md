@@ -1,4 +1,7 @@
 # chatapp-serverless
+
+Latest API generated: https://449i96xfi5.execute-api.eu-west-1.amazonaws.com/Prod/test-connection
+
 (this readme is mostly auto generated)
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders and the rest were auto generated as a SAM quick template.
