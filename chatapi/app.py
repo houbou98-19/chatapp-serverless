@@ -1,7 +1,8 @@
 import json
 import os
-from fastapi import FastAPI, HTTPException # type: ignore
+from fastapi import FastAPI, HTTPException, Response # type: ignore
 from fastapi.responses import FileResponse, JSONResponse # type: ignore
+from fastapi.staticfiles import StaticFiles # type: ignore
 from pydantic import BaseModel # type: ignore
 from typing import List
 from mangum import Mangum # type: ignore
@@ -12,6 +13,8 @@ load_dotenv(dotenv_path='.env')
 mongodb_url = os.getenv('MONGODB_URL')
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 class Message(BaseModel):
     username: str
@@ -32,7 +35,6 @@ def get_collection():
 async def post_message(message: Message):
     try:
         collection = get_collection()
-        # Insert the message as a dictionary, with consistent keys
         collection.insert_one({"username": message.username, "messagecontent": message.content})
         
         return {"status": "Message posted successfully"}
@@ -40,13 +42,22 @@ async def post_message(message: Message):
         return {"status": "Error", "message": str(e)}
 
 @app.get("/messages")
-async def get_messages():
+async def get_messages(response: Response):
     try:
+        print("Received request for messages")
         collection = get_collection()
-        messages = list(collection.find({}, {"_id": 0, "username": 1, "messagecontent": 1}))  # Ensure keys match
+        messages = list(collection.find({}, {"_id": 0, "username": 1, "messagecontent": 1}))
+
+        headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true"
+        }
+       
         return JSONResponse(content=messages)
     except Exception as e:
-        return {"status": "Error", "message": str(e)}
+        print(f"Error getting messages: {e}")
+        return JSONResponse(status_code=500, content={"status": "Error", "message": str(e)})
+
 
 @app.get("/test-connection")
 async def test_connection():
@@ -59,7 +70,7 @@ async def test_connection():
         first_document = collection.find_one()
         print("Connection successful! First document in the collection:", first_document)
 
-        return {"status": "Connection successful"}
+        return {"status": "Connection successful " + str(first_document)}
     except Exception as e:
         print("Error connecting to MongoDB:", e)
         return {"status": "Connection failed", "error": str(e)}
