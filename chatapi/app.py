@@ -1,6 +1,5 @@
-import json
 import os
-from fastapi import FastAPI, HTTPException, Response # type: ignore
+from fastapi import FastAPI, Response # type: ignore
 from fastapi.responses import FileResponse, JSONResponse # type: ignore
 from fastapi.staticfiles import StaticFiles # type: ignore
 from pydantic import BaseModel # type: ignore
@@ -44,44 +43,17 @@ async def post_message(message: Message):
 @app.get("/messages")
 async def get_messages(response: Response):
     try:
-        print("Received request for messages")
         collection = get_collection()
         messages = list(collection.find({}, {"_id": 0, "username": 1, "messagecontent": 1}))
-
-        headers = {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": "true"
-        }
-       
+        
         return JSONResponse(content=messages)
     except Exception as e:
-        print(f"Error getting messages: {e}")
         return JSONResponse(status_code=500, content={"status": "Error", "message": str(e)})
-
-
-@app.get("/test-connection")
-async def test_connection():
-    try:
-        print("Attempting to connect to MongoDB...")
-        client = connect_to_mongo()
-        db = client['Chats']
-        collection = db['messages']
-        
-        first_document = collection.find_one()
-        print("Connection successful! First document in the collection:", first_document)
-
-        return {"status": "Connection successful " + str(first_document)}
-    except Exception as e:
-        print("Error connecting to MongoDB:", e)
-        return {"status": "Connection failed", "error": str(e)}
 
 @app.get("/chat")
 async def read_chat():
     return FileResponse(os.path.join("static", "chat.html"))
 
-@app.get("/")
-async def read_root():
-    return {"message": "Hello, World!"}
 
 handler = Mangum(app)
 
