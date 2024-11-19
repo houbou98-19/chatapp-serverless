@@ -23,6 +23,7 @@ Resources:
       Environment:
         Variables:
           MONGODB_URL: !Sub "{{resolve:ssm:Parameter_MONGODB_URL}}"
+          SECRET_KEY: !Sub "{{resolve:ssm:Parameter_SECRET_KEY}}"
       Events:
         ApiGateway:
           Type: Api
@@ -34,4 +35,4 @@ Resources:
 Outputs:
   ApiUrl:
     Description: "API Gateway URL for the Chat App"
-    Value: !Sub "https://${ChatApiGateway}.execute-api.eu-west-1.amazonaws.com/Prod/chat"
+    Value: !Sub "https://${ChatApiGateway}.execute-api.eu-west-1.amazonaws.com/Prod/login"
