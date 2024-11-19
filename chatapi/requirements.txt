@@ -3,3 +3,5 @@ fastapi
 mangum
 pymongo
 python-dotenv
+python-jose
+python-multipart
