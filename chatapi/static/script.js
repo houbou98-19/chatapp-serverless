@@ -50,4 +50,7 @@ async function postMessage(event) {
 
 
 document.getElementById('message-form').addEventListener('submit', postMessage);
-document.addEventListener("DOMContentLoaded", fetchMessages);
+document.addEventListener("DOMContentLoaded", () => {
+    fetchMessages(); // Fetch messages when the page loads
+    setInterval(fetchMessages, 5000); // Fetch messages every 5 seconds
+});
