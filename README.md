@@ -36,7 +36,7 @@ To Deploy it run the following command
 sam deploy --guided
 ```
 
-**Important** AWS needs to have your MongoDB_URI set on AWS SSM by running the command
+**Important** AWS needs to have your MongoDB_URI set on AWS SSM by running the commands
 
 ```bash
 aws ssm put-parameter --name "Parameter_MONGODB_URL" --value "<MONGO_DB_URL>" --type "String" --overwrite
