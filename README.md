@@ -28,7 +28,7 @@ To run it locally run the following command
 sam local start-api --env-vars env.json
 ```
 
-### 
+### Prod
 
 To Deploy it run the following command
 
