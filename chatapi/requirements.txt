@@ -5,3 +5,4 @@ pymongo
 python-dotenv
 python-jose
 python-multipart
+bcrypt
