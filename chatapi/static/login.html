@@ -10,16 +10,29 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Login</h1>
-        <form id="login-form">
+        <form id="login-form" class="mb-4">
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" required>
+                <label for="login-username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="login-username" required>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" required>
+                <label for="login-password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="login-password" required>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <hr>
+        <h1 class="text-center">Register</h1>
+        <form id="register-form">
+            <div class="mb-3">
+                <label for="register-username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="register-username" required>
+            </div>
+            <div class="mb-3">
+                <label for="register-password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="register-password" required>
+            </div>
+            <button type="submit" class="btn btn-secondary">Register</button>
         </form>
     </div>
 </body>
