@@ -11,8 +11,8 @@ from dotenv import load_dotenv # type: ignore
 from mangum import Mangum # type: ignore
 import bcrypt # type: ignore
 
-# Load environment variables
-load_dotenv(dotenv_path=".env")
+# Load environment variables for local development, uncomment next line for local development
+#load_dotenv(dotenv_path=".env")
 
 # Environment variables
 SECRET_KEY = os.getenv("SECRET_KEY")
