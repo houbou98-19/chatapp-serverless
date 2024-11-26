@@ -1,6 +1,7 @@
 # Chatapp-serverless
 
-Latest API generated: <https://0c46flwrkd.execute-api.eu-west-1.amazonaws.com/Prod/login>
+Latest API generated: 
+https://p5iwu324m5.execute-api.eu-west-1.amazonaws.com/Prod/login
 
 This is a serverless chat-application that works mostly as a proof of concept for creating a webserver with all it's routes be hosted as serverless instead of having a server idly running.  
 
