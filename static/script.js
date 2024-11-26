@@ -68,9 +68,8 @@ async function loginUser(event) {
     });
 
     if (response.ok) {
-        //const data = await response.json();
-        //localStorage.setItem("token", data.access_token);
-        window.location.href = envPath + "/chat";
+        const redirectUrl = window.location.origin + envPath + "/chat";
+        window.location.href = redirectUrl;
     } else {
         alert("Invalid username or password");
     }

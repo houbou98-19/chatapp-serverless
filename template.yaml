@@ -16,7 +16,7 @@ Resources:
     Properties:
       Handler: app.lambda_handler
       Runtime: python3.12
-      CodeUri: chatapi/
+      CodeUri: .
       Timeout: 60
       Policies:
         - AWSLambdaBasicExecutionRole
