@@ -8,8 +8,8 @@ Resources:
     Properties:
       StageName: Prod
       Cors:
-        AllowOrigin: "'*'"
-        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowOrigin: '''*'''
+        AllowMethods: '''GET,POST,OPTIONS'''
 
   ChatApi:
     Type: AWS::Serverless::Function
@@ -22,17 +22,17 @@ Resources:
         - AWSLambdaBasicExecutionRole
       Environment:
         Variables:
-          MONGODB_URL: !Sub "{{resolve:ssm:Parameter_MONGODB_URL}}"
-          SECRET_KEY: !Sub "{{resolve:ssm:Parameter_SECRET_KEY}}"
+          MONGODB_URL: !Sub '{{resolve:ssm:Parameter_MONGODB_URL}}'
+          SECRET_KEY: !Sub '{{resolve:ssm:Parameter_SECRET_KEY}}'
       Events:
         ApiGateway:
           Type: Api
           Properties:
-            RestApiId: !Ref ChatApiGateway  
+            RestApiId: !Ref ChatApiGateway
             Path: /{proxy+}
             Method: ANY
 
 Outputs:
   ApiUrl:
-    Description: "API Gateway URL for the Chat App"
-    Value: !Sub "https://${ChatApiGateway}.execute-api.eu-west-1.amazonaws.com/Prod/login"
+    Description: API Gateway URL for the Chat App
+    Value: !Sub https://${ChatApiGateway}.execute-api.eu-west-1.amazonaws.com/Prod/login
