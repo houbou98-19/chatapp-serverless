@@ -7,7 +7,7 @@ This is a serverless chat-application that works mostly as a proof of concept fo
 
 To use the SAM CLI in this project, you need the following tools.
 
-- SAM CLI - [Install the SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+- SAM CLI (With AWS CLI) - [Install the SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 - [Python 3.12 installed](https://www.python.org/downloads/)
 - Docker - [Install Docker community edition](https://hub.docker.com/)
 
